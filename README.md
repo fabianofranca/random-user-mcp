@@ -1,6 +1,6 @@
 # 🚀 Random User MCP Server
 
-This project was created with the assistance of the Gemini CLI. For additional context and development guidelines, please refer to the `GEMINI.md` file.
+This project was created with the assistance of Junie. For additional context and development guidelines, please refer to the `.junie/guidelines.md` file.
 
 ## 📖 Overview
 
@@ -31,7 +31,7 @@ This command will compile the code and create the `build/libs/random-user-mcp-al
 
 This server can be run in two different modes, depending on the communication method you want to use:
 
-1.  **`stdio` (Standard Input/Output)**: This is the default mode. It's ideal for local integrations where a client application (like Gemini CLI) runs the server as a subprocess and communicates with it directly through standard input and output streams. To run in this mode, execute the JAR without arguments or with the `stdio` argument:
+1.  **`stdio` (Standard Input/Output)**: This is the default mode. It's ideal for local integrations where a client application (like Claude Desktop) runs the server as a subprocess and communicates with it directly through standard input and output streams. To run in this mode, execute the JAR without arguments or with the `stdio` argument:
     ```bash
     java -jar build/libs/random-user-mcp-all.jar stdio
     ```
@@ -42,35 +42,6 @@ This server can be run in two different modes, depending on the communication me
     ```
 
 ## 🧪 Testing and Integration
-
-### 💻 Testing in Gemini CLI
-
-To allow the Gemini CLI to discover and interact with your MCP server, follow the steps below:
-
-1.  **Configure the Server:**
-    Edit the `~/.gemini/settings.json` configuration file (or create it if it doesn't exist). The Gemini CLI automatically loads the settings from this file. Add the `mcpServers` section to the file:
-    ```json
-    {
-      "mcpServers": {
-        "mcp-main": {
-          "command": "[PROJECT_PATH]/random-user-mcp/random-user-mcp.sh",
-          // Change [PROJECT_PATH] to the absolute path where the 'random-user-mcp' project is located on your machine.
-          "protocol": "stdio"
-        }
-      }
-    }
-    ```
-    *Make sure the `run_mcp.sh` script has execution permissions. If not, run `chmod +x [PROJECT_PATH]/random-user-mcp/run_mcp.sh` in the terminal.*
-    *If the `settings.json` file already exists, just add the `mcpServers` key with the content above, ensuring the final JSON structure is valid.*
-
-2.  **Start and Verify:**
-    After saving the file, **restart the Gemini CLI**. The MCP server will start automatically. To check if the connection was successful, use the command:
-    ```bash
-    /mcp
-    ```
-    This command will list the `random-user-mcp` server and its status. If the status is `CONNECTED`, the server's tools will be ready to use.
-
----
 
 ### 🤖 Testing in Claude Desktop
 
