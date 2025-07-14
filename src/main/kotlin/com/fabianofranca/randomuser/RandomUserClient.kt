@@ -1,35 +1,25 @@
 package com.fabianofranca.randomuser
 
 import com.fabianofranca.randomuser.models.RandomUserResponse
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.json.Json
 
-class RandomUserClient(
-    private val client: HttpClient = HttpClient(CIO) {
-        install(ContentNegotiation) {
-            json(Json { ignoreUnknownKeys = true })
-        }
-    }
-) {
-
+/**
+ * Interface that defines methods to interact with the randomuser.me API.
+ * This interface makes it easier to mock the client in unit tests.
+ */
+interface RandomUserClient {
+    /**
+     * Fetches users from the randomuser.me API.
+     *
+     * @param results The number of user results to fetch (default: 1)
+     * @param page The page number for pagination (default: 1)
+     * @param nationality The nationality code for filtering users (default: "us")
+     * @return A RandomUserResponse containing the fetched user data
+     */
     suspend fun getUsers(
         results: Int = DEFAULT_RESULTS,
         page: Int = DEFAULT_PAGE,
         nationality: String = DEFAULT_NATIONALITY
-    ): RandomUserResponse {
-        return client.get("https://randomuser.me/api/") {
-            url {
-                parameters.append(PARAM_RESULTS, results.toString())
-                parameters.append(PARAM_PAGE, page.toString())
-                parameters.append(PARAM_NATIONALITY, nationality)
-            }
-        }.body()
-    }
+    ): RandomUserResponse
 
     companion object {
         // API parameter names
@@ -40,6 +30,6 @@ class RandomUserClient(
         // Default values
         const val DEFAULT_RESULTS = 1
         const val DEFAULT_PAGE = 1
-        const val DEFAULT_NATIONALITY = "br"
+        const val DEFAULT_NATIONALITY = "us"
     }
 }
