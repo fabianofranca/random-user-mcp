@@ -1,11 +1,12 @@
 package com.fabianofranca.randomuser
 
+import com.fabianofranca.randomuser.models.UserLocation
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class UserLocationTest {
-    
+
     @Test
     fun `test postcode deserialization with string value`() {
         val json = """
@@ -28,11 +29,11 @@ class UserLocationTest {
                 }
             }
         """.trimIndent()
-        
+
         val location = Json.decodeFromString<UserLocation>(json)
         assertEquals("XD1234", location.postcode)
     }
-    
+
     @Test
     fun `test postcode deserialization with integer value`() {
         val json = """
@@ -55,7 +56,7 @@ class UserLocationTest {
                 }
             }
         """.trimIndent()
-        
+
         val location = Json.decodeFromString<UserLocation>(json)
         assertEquals("12345", location.postcode)
     }

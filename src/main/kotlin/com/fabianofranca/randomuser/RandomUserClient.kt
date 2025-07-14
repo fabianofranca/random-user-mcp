@@ -1,5 +1,6 @@
 package com.fabianofranca.randomuser
 
+import com.fabianofranca.randomuser.models.RandomUserResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -39,6 +40,6 @@ class RandomUserClient {
         // Default values
         const val DEFAULT_RESULTS = 1
         const val DEFAULT_PAGE = 1
-        const val DEFAULT_NATIONALITY = "BR"
+        const val DEFAULT_NATIONALITY = "br"
     }
 }
