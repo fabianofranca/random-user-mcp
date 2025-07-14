@@ -50,3 +50,26 @@ After any code modification, the project must be compiled using the following co
 ```bash
 ./gradlew build
 ```
+
+## 6. Commit Message Guidelines
+
+When writing commit messages for this project:
+
+- **Use English**: All commit messages must be written in English.
+- **Write Based on Staged Files**: Commit messages should be written based only on the staged files (files that have been added to the commit with `git add`).
+- **Follow Best Practices**:
+  - Use the imperative mood (e.g., "Add feature" not "Added feature")
+  - Keep the first line under 50 characters
+  - Provide a concise summary in the first line
+  - If needed, add a blank line followed by a more detailed explanation
+  - Reference issue numbers when applicable
+- **Structure**:
+  ```
+  Subject line (50 chars or less)
+
+  More detailed explanatory text, if necessary. Wrap it to about 72
+  characters. The blank line separating the summary from the body is
+  critical.
+
+  Reference issues at the bottom: #123, #456
+  ```

@@ -1,6 +1,7 @@
 package com.fabianofranca.randomuser
 
 import com.fabianofranca.randomuser.tools.setupGetRandomNamesTool
+import com.fabianofranca.randomuser.tools.setupGetUsersTool
 import io.ktor.utils.io.streams.*
 import io.modelcontextprotocol.kotlin.sdk.Implementation
 import io.modelcontextprotocol.kotlin.sdk.ServerCapabilities
@@ -31,6 +32,7 @@ class RandomUserMcpServer {
 
     private fun setupTools() {
         setupGetRandomNamesTool(server)
+        setupGetUsersTool(server)
     }
 
     fun startStdioServer() {
