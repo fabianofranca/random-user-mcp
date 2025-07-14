@@ -9,13 +9,13 @@ import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-class RandomUserClient {
-
-    private val client = HttpClient(CIO) {
+class RandomUserClient(
+    private val client: HttpClient = HttpClient(CIO) {
         install(ContentNegotiation) {
             json(Json { ignoreUnknownKeys = true })
         }
     }
+) {
 
     suspend fun getUsers(
         results: Int = DEFAULT_RESULTS,
