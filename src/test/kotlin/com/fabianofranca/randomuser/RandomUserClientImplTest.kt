@@ -229,4 +229,39 @@ class RandomUserClientImplTest {
         val request = mockEngine.requestHistory.last()
         assertEquals("https://randomuser.me/api/1.4/?results=3&page=1&nat=us&gender=female", request.url.toString())
     }
+
+    @Test
+    fun `test password parameter is passed correctly`() = runBlocking {
+        // Given: A mock engine that captures the request URL
+        val mockEngine = MockEngine { request ->
+            // Return a simple valid response
+            val responseContent = """
+                {
+                    "results": [],
+                    "info": {
+                        "seed": "test",
+                        "results": 0,
+                        "page": 1,
+                        "version": "1.4"
+                    }
+                }
+            """.trimIndent()
+            respond(
+                content = responseContent,
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val client = createClientWithMockEngine(mockEngine)
+        val args = GetUsersArgs(results = 3, page = 1, nationality = "us", version = "1.4", password = "upper,lower,1-16")
+
+        // When: We call getUsers with a password parameter
+        client.getUsers(args)
+
+        // Then: The request URL should contain the password parameter
+        val request = mockEngine.requestHistory.last()
+        val actualUrl = request.url.toString()
+        println("[DEBUG_LOG] Actual URL: $actualUrl")
+        assertEquals("https://randomuser.me/api/1.4/?results=3&page=1&nat=us&password=upper%2Clower%2C1-16", actualUrl)
+    }
 }

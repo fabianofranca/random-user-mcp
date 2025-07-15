@@ -49,6 +49,12 @@ class GetUsersTool(
                 string(GetUsersArgs.PARAM_GENDER) {
                     description("Gender of users to return. Available options: male, female. If not specified, both genders will be returned.")
                 }
+                string(GetUsersArgs.PARAM_PASSWORD) {
+                    description("Controls how passwords are generated. Format: CHARSETS,MIN_LENGTH-MAX_LENGTH or CHARSETS,MAX_LENGTH. " +
+                            "Available charsets: special (special characters: !\"#$%&'()*+,- ./:;<=>?@[\\]^_`{|}~), upper (uppercase letters), lower (lowercase letters), number (digits). " +
+                            "Example: 'upper,lower,1-16' generates passwords with uppercase and lowercase letters between 1-16 characters long. " +
+                            "By default, passwords are chosen randomly from a list of ~10k top used passwords.")
+                }
             }
         }
     )

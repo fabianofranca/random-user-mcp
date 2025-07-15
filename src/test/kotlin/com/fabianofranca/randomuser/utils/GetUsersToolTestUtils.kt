@@ -37,7 +37,8 @@ object GetUsersToolTestUtils {
         nationality: String? = null,
         version: String? = null,
         seed: String? = null,
-        gender: String? = null
+        gender: String? = null,
+        password: String? = null
     ): CallToolRequest {
         val arguments = mutableMapOf<String, JsonPrimitive>()
 
@@ -47,6 +48,7 @@ object GetUsersToolTestUtils {
         version?.let { arguments[GetUsersArgs.PARAM_VERSION] = JsonPrimitive(it) }
         seed?.let { arguments[GetUsersArgs.PARAM_SEED] = JsonPrimitive(it) }
         gender?.let { arguments[GetUsersArgs.PARAM_GENDER] = JsonPrimitive(it) }
+        password?.let { arguments[GetUsersArgs.PARAM_PASSWORD] = JsonPrimitive(it) }
 
         return CallToolRequest(
             name = "get_users",
@@ -64,7 +66,8 @@ object GetUsersToolTestUtils {
         expectedNationality: String,
         expectedVersion: String = GetUsersArgs.DEFAULT_VERSION,
         expectedSeed: String? = null,
-        expectedGender: String? = null
+        expectedGender: String? = null,
+        expectedPassword: String? = null
     ) {
         assertEquals(expectedResults, mockClient.capturedResults)
         assertEquals(expectedPage, mockClient.capturedPage)
@@ -72,6 +75,7 @@ object GetUsersToolTestUtils {
         assertEquals(expectedVersion, mockClient.capturedVersion)
         assertEquals(expectedSeed, mockClient.capturedSeed)
         assertEquals(expectedGender, mockClient.capturedGender)
+        assertEquals(expectedPassword, mockClient.capturedPassword)
     }
 
     /**

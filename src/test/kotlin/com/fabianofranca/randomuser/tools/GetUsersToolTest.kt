@@ -34,6 +34,7 @@ class GetUsersToolTest {
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_VERSION))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_SEED))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_GENDER))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_PASSWORD))
 
         // Verify that the properties contain the expected types and default values
         val propertiesString = properties.toString()
@@ -170,6 +171,33 @@ class GetUsersToolTest {
             GetUsersArgs.DEFAULT_VERSION,
             null,
             gender
+        )
+
+        // Verify JSON response
+        verifyJsonResponse(result, mockClient.expectedResponse)
+    }
+
+    @Test
+    fun `test handler with password parameter`() = runBlocking {
+        // Given: A GetUsersTool with a mock client and a request with a password parameter
+        val password = "upper,lower,1-16"
+        val (tool, mockClient) = createToolWithMockClient()
+        val request = createRequest(password = password)
+
+        // When: We call the handler
+        val result = tool.handler(request)
+
+        // Then: The client should be called with the password parameter and return the expected response
+        // Verify client was called with the password parameter
+        verifyParameters(
+            mockClient,
+            GetUsersArgs.DEFAULT_RESULTS,
+            GetUsersArgs.DEFAULT_PAGE,
+            GetUsersArgs.DEFAULT_NATIONALITY,
+            GetUsersArgs.DEFAULT_VERSION,
+            null,
+            null,
+            password
         )
 
         // Verify JSON response
