@@ -15,8 +15,6 @@ import kotlin.test.assertEquals
  * Utility class containing helper methods for testing GetUsersTool
  */
 object GetUsersToolTestUtils {
-    // JSON serializer without pretty print
-    private val json = Json {}
 
     /**
      * Creates a GetUsersTool with a mock client for testing
@@ -74,7 +72,7 @@ object GetUsersToolTestUtils {
         val content = result.content.first() as TextContent
         val responseJson = content.text
 
-        val expectedJson = json.encodeToString(RandomUserResponse.serializer(), expectedResponse)
+        val expectedJson = Json.encodeToString(RandomUserResponse.serializer(), expectedResponse)
 
         assertEquals(expectedJson, responseJson)
     }

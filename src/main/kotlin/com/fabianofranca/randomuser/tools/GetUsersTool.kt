@@ -14,7 +14,8 @@ import io.modelcontextprotocol.kotlin.sdk.Tool
 import kotlinx.serialization.json.Json
 
 class GetUsersTool(
-    private val client: RandomUserClient = RandomUserClientImpl()
+    private val client: RandomUserClient = RandomUserClientImpl(),
+    private val json: Json = Json { ignoreUnknownKeys = true }
 ) : BaseTool() {
     override fun tool() = Tool(
         name = "get_users",
@@ -42,7 +43,6 @@ class GetUsersTool(
 
         return try {
             val response = client.getUsers(args)
-            val json = Json {}
             val responseJson = json.encodeToString(response)
 
             CallToolResult(
