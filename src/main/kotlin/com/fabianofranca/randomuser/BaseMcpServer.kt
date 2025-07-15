@@ -28,7 +28,12 @@ abstract class BaseMcpServer(name: String, version: String) {
     abstract val tools: List<BaseTool>
 
     init {
-        tools.forEach { it.addTool(server) }
+        try {
+            tools.forEach { it.addTool(server) }
+        } catch (e: Exception) {
+            // Log the exception but don't fail initialization
+            println("Error initializing tools: ${e.message}")
+        }
     }
 
     fun startStdioServer() {
