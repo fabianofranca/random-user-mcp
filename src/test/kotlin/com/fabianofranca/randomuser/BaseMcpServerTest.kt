@@ -1,5 +1,6 @@
 package com.fabianofranca.randomuser
 
+import com.fabianofranca.randomuser.resources.BaseResource
 import com.fabianofranca.randomuser.tools.BaseTool
 import com.fabianofranca.randomuser.tools.GetUsersTool
 import kotlinx.coroutines.*
@@ -19,7 +20,8 @@ class BaseMcpServerTest {
     private class TestBaseMcpServer(
         name: String = "test-server",
         version: String = "0.0.1",
-        override val tools: List<BaseTool> = listOf(GetUsersTool())
+        override val tools: List<BaseTool> = listOf(GetUsersTool()),
+        override val resources: List<BaseResource> = emptyList()
     ) : BaseMcpServer(name, version)
 
     @Test
@@ -44,6 +46,29 @@ class BaseMcpServerTest {
         // Then: The server should be initialized with the custom tools
         val tools = server.tools
         assertEquals(0, tools.size, "Server should have no tools")
+    }
+
+    @Test
+    fun `test BaseMcpServer resources`() {
+        // Given/When: We create a TestBaseMcpServer
+        val server = TestBaseMcpServer()
+
+        // Then: The server should be initialized with the expected resources
+        val resources = server.resources
+        assertEquals(0, resources.size, "Server should have no resources by default")
+    }
+
+    @Test
+    fun `test BaseMcpServer with custom resources`() {
+        // Given: A custom resource list
+        val customResources = listOf<BaseResource>()
+
+        // When: We create a TestBaseMcpServer with the custom resources
+        val server = TestBaseMcpServer(resources = customResources)
+
+        // Then: The server should be initialized with the custom resources
+        val resources = server.resources
+        assertEquals(0, resources.size, "Server should have no resources")
     }
 
     @Test

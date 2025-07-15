@@ -39,6 +39,7 @@ This project is a Random User MCP (Model Context Protocol) Server built with Kot
 - When adding new tools, follow the pattern in the existing tools in the `tools` package.
 - New client methods for the randomuser.me API should be added to RandomUserClient.kt.
 - New data models should be added to RandomUserModels.kt.
+- Whenever a model is modified, the models.md file must be updated to reflect the changes.
 - All dependencies added in build.gradle.kts must be defined in the libs.versions.toml file, following the pattern of existing dependencies. Dependency versions should always be defined as variables in the [versions] section and referenced using version.ref in the [libraries] and [plugins] sections.
 
 ## Commit Message Guidelines

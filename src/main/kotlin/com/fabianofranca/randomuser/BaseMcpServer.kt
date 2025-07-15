@@ -1,5 +1,6 @@
 package com.fabianofranca.randomuser
 
+import com.fabianofranca.randomuser.resources.BaseResource
 import com.fabianofranca.randomuser.tools.BaseTool
 import io.ktor.utils.io.streams.*
 import io.modelcontextprotocol.kotlin.sdk.Implementation
@@ -20,19 +21,25 @@ abstract class BaseMcpServer(name: String, version: String) {
         ),
         options = ServerOptions(
             capabilities = ServerCapabilities(
-                tools = ServerCapabilities.Tools(false)
+                tools = ServerCapabilities.Tools(false),
+                resources = ServerCapabilities.Resources(
+                    subscribe = false,
+                    listChanged = false
+                )
             )
         )
     )
 
     abstract val tools: List<BaseTool>
+    abstract val resources: List<BaseResource>
 
     init {
         try {
             tools.forEach { it.addTool(server) }
+            resources.forEach { it.addResource(server) }
         } catch (e: Exception) {
             // Log the exception but don't fail initialization
-            println("Error initializing tools: ${e.message}")
+            println("Error initializing tools and resources: ${e.message}")
         }
     }
 
