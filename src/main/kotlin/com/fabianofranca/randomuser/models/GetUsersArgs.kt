@@ -16,17 +16,22 @@ data class GetUsersArgs(
     val page: Int = DEFAULT_PAGE,
 
     @SerialName(PARAM_NATIONALITY)
-    val nationality: String = DEFAULT_NATIONALITY
+    val nationality: String = DEFAULT_NATIONALITY,
+
+    @SerialName(PARAM_VERSION)
+    val version: String = DEFAULT_VERSION
 ) {
     companion object {
         // API parameter names
         const val PARAM_RESULTS = "results"
         const val PARAM_PAGE = "page"
         const val PARAM_NATIONALITY = "nat"
+        const val PARAM_VERSION = "version"
 
         // Default values
         const val DEFAULT_RESULTS = 1
         const val DEFAULT_PAGE = 1
         const val DEFAULT_NATIONALITY = "us"
+        const val DEFAULT_VERSION = "1.4" // Latest version as of implementation
     }
 }

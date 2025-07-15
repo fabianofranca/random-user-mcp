@@ -59,7 +59,7 @@ class RandomUserClientTest {
 
         // Then: The request should have the expected URL with default parameters
         val request = mockEngine.requestHistory.last()
-        assertEquals("https://randomuser.me/api/?results=1&page=1&nat=us", request.url.toString())
+        assertEquals("https://randomuser.me/api/1.4/?results=1&page=1&nat=us", request.url.toString())
     }
 
     @Test
@@ -69,12 +69,13 @@ class RandomUserClientTest {
         val results = 5
         val page = 2
         val nationality = "br"
+        val version = "1.2"
 
         // When: We call getUsers with custom parameters
-        client.getUsers(GetUsersArgs(results = results, page = page, nationality = nationality))
+        client.getUsers(GetUsersArgs(results = results, page = page, nationality = nationality, version = version))
 
         // Then: The request should have the expected URL with custom parameters
         val request = mockEngine.requestHistory.last()
-        assertEquals("https://randomuser.me/api/?results=5&page=2&nat=br", request.url.toString())
+        assertEquals("https://randomuser.me/api/1.2/?results=5&page=2&nat=br", request.url.toString())
     }
 }

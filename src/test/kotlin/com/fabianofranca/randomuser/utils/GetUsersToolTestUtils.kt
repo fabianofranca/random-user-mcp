@@ -34,13 +34,15 @@ object GetUsersToolTestUtils {
     fun createRequest(
         results: Int? = null,
         page: Int? = null,
-        nationality: String? = null
+        nationality: String? = null,
+        version: String? = null
     ): CallToolRequest {
         val arguments = mutableMapOf<String, JsonPrimitive>()
 
         results?.let { arguments[GetUsersArgs.PARAM_RESULTS] = JsonPrimitive(it) }
         page?.let { arguments[GetUsersArgs.PARAM_PAGE] = JsonPrimitive(it) }
         nationality?.let { arguments[GetUsersArgs.PARAM_NATIONALITY] = JsonPrimitive(it) }
+        version?.let { arguments[GetUsersArgs.PARAM_VERSION] = JsonPrimitive(it) }
 
         return CallToolRequest(
             name = "get_users",
@@ -55,11 +57,13 @@ object GetUsersToolTestUtils {
         mockClient: MockRandomUserClient,
         expectedResults: Int,
         expectedPage: Int,
-        expectedNationality: String
+        expectedNationality: String,
+        expectedVersion: String = GetUsersArgs.DEFAULT_VERSION
     ) {
         assertEquals(expectedResults, mockClient.capturedResults)
         assertEquals(expectedPage, mockClient.capturedPage)
         assertEquals(expectedNationality, mockClient.capturedNationality)
+        assertEquals(expectedVersion, mockClient.capturedVersion)
     }
 
     /**

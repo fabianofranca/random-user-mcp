@@ -31,6 +31,7 @@ class GetUsersToolTest {
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_RESULTS))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_PAGE))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_NATIONALITY))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_VERSION))
 
         // Verify that the properties contain the expected types and default values
         val propertiesString = properties.toString()
@@ -38,6 +39,7 @@ class GetUsersToolTest {
         assertTrue(propertiesString.contains("\"default\":${GetUsersArgs.DEFAULT_RESULTS}"))
         assertTrue(propertiesString.contains("\"default\":${GetUsersArgs.DEFAULT_PAGE}"))
         assertTrue(propertiesString.contains("\"default\":\"${GetUsersArgs.DEFAULT_NATIONALITY}\""))
+        assertTrue(propertiesString.contains("\"default\":\"${GetUsersArgs.DEFAULT_VERSION}\""))
     }
 
     @Test
@@ -77,6 +79,30 @@ class GetUsersToolTest {
         // Then: The client should be called with custom parameters and return the expected response
         // Verify client was called with custom parameters
         verifyParameters(mockClient, results, page, nationality)
+
+        // Verify JSON response
+        verifyJsonResponse(result, mockClient.expectedResponse)
+    }
+
+    @Test
+    fun `test handler with custom version parameter`() = runBlocking {
+        // Given: A GetUsersTool with a mock client and a request with custom version parameter
+        val version = "1.3"
+        val (tool, mockClient) = createToolWithMockClient()
+        val request = createRequest(version = version)
+
+        // When: We call the handler
+        val result = tool.handler(request)
+
+        // Then: The client should be called with custom version parameter and return the expected response
+        // Verify client was called with custom version parameter
+        verifyParameters(
+            mockClient,
+            GetUsersArgs.DEFAULT_RESULTS,
+            GetUsersArgs.DEFAULT_PAGE,
+            GetUsersArgs.DEFAULT_NATIONALITY,
+            version
+        )
 
         // Verify JSON response
         verifyJsonResponse(result, mockClient.expectedResponse)

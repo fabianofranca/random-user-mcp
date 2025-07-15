@@ -34,6 +34,10 @@ class GetUsersTool(
                     description("Nationality of users to be returned (default: ${GetUsersArgs.DEFAULT_NATIONALITY}).")
                     default(GetUsersArgs.DEFAULT_NATIONALITY)
                 }
+                string(GetUsersArgs.PARAM_VERSION) {
+                    description("API version to use (default: ${GetUsersArgs.DEFAULT_VERSION}). Available versions: 1.0, 1.1, 1.2, 1.3, 1.4")
+                    default(GetUsersArgs.DEFAULT_VERSION)
+                }
             }
         }
     )

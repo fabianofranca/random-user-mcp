@@ -154,13 +154,13 @@ class RandomUserClientImplTest {
             )
         }
         val client = createClientWithMockEngine(mockEngine)
-        val args = GetUsersArgs(results = 10, page = 2, nationality = "ca")
+        val args = GetUsersArgs(results = 10, page = 2, nationality = "ca", version = "1.3")
 
         // When: We call getUsers with custom parameters
         client.getUsers(args)
 
         // Then: The request URL should contain the custom parameters
         val request = mockEngine.requestHistory.last()
-        assertEquals("https://randomuser.me/api/?results=10&page=2&nat=ca", request.url.toString())
+        assertEquals("https://randomuser.me/api/1.3/?results=10&page=2&nat=ca", request.url.toString())
     }
 }

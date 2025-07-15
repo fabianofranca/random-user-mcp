@@ -13,6 +13,7 @@ class MockRandomUserClient(
     var capturedResults: Int? = null
     var capturedPage: Int? = null
     var capturedNationality: String? = null
+    var capturedVersion: String? = null
 
     // Public property to access the expected response
     val expectedResponse: RandomUserResponse
@@ -22,6 +23,7 @@ class MockRandomUserClient(
         capturedResults = args.results
         capturedPage = args.page
         capturedNationality = args.nationality
+        capturedVersion = args.version
 
         if (throwException) {
             throw Exception("Test exception")
