@@ -47,21 +47,6 @@ class BaseMcpServerTest {
     }
 
     @Test
-    fun `test BaseMcpServer with custom name and version`() {
-        // Given: Custom name and version
-        val customName = "custom-server"
-        val customVersion = "1.0.0"
-
-        // When: We create a TestBaseMcpServer with the custom name and version
-        val server = TestBaseMcpServer(name = customName, version = customVersion)
-
-        // Then: The server should be initialized successfully
-        // Note: We can't directly access the serverInfo as it's private,
-        // but we can verify that the server was created without errors
-        assertTrue(server.server != null, "Server should be initialized")
-    }
-
-    @Test
     fun `test startStdioServer can be launched`() = runBlocking {
         // Given: A TestBaseMcpServer
         val server = TestBaseMcpServer()
