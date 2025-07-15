@@ -1,5 +1,6 @@
 package com.fabianofranca.randomuser
 
+import com.fabianofranca.randomuser.models.GetUsersArgs
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -70,7 +71,7 @@ class RandomUserClientTest {
         val nationality = "br"
 
         // When: We call getUsers with custom parameters
-        client.getUsers(results = results, page = page, nationality = nationality)
+        client.getUsers(GetUsersArgs(results = results, page = page, nationality = nationality))
 
         // Then: The request should have the expected URL with custom parameters
         val request = mockEngine.requestHistory.last()

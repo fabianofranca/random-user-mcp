@@ -1,5 +1,6 @@
 package com.fabianofranca.randomuser
 
+import com.fabianofranca.randomuser.models.GetUsersArgs
 import com.fabianofranca.randomuser.models.RandomUserResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -24,18 +25,14 @@ class RandomUserClientImpl(
 ) : RandomUserClient {
     private val logger = LoggerFactory.getLogger("com.fabianofranca.randomuser.ApiRequestLogger")
 
-    override suspend fun getUsers(
-        results: Int,
-        page: Int,
-        nationality: String
-    ): RandomUserResponse {
-        logger.info("Making API request to randomuser.me with parameters: results=$results, page=$page, nationality=$nationality")
+    override suspend fun getUsers(args: GetUsersArgs): RandomUserResponse {
+        logger.info("Making API request to randomuser.me with parameters: results=${args.results}, page=${args.page}, nationality=${args.nationality}")
 
         val response = client.get("https://randomuser.me/api/") {
             url {
-                parameters.append(RandomUserClient.PARAM_RESULTS, results.toString())
-                parameters.append(RandomUserClient.PARAM_PAGE, page.toString())
-                parameters.append(RandomUserClient.PARAM_NATIONALITY, nationality)
+                parameters.append(GetUsersArgs.PARAM_RESULTS, args.results.toString())
+                parameters.append(GetUsersArgs.PARAM_PAGE, args.page.toString())
+                parameters.append(GetUsersArgs.PARAM_NATIONALITY, args.nationality)
             }
         }
 

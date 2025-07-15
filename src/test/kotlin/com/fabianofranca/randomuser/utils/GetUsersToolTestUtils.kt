@@ -1,6 +1,6 @@
 package com.fabianofranca.randomuser.utils
 
-import com.fabianofranca.randomuser.RandomUserClient
+import com.fabianofranca.randomuser.models.GetUsersArgs
 import com.fabianofranca.randomuser.models.RandomUserResponse
 import com.fabianofranca.randomuser.tools.GetUsersTool
 import io.modelcontextprotocol.kotlin.sdk.CallToolRequest
@@ -15,8 +15,8 @@ import kotlin.test.assertEquals
  * Utility class containing helper methods for testing GetUsersTool
  */
 object GetUsersToolTestUtils {
-    // JSON serializer with pretty print enabled
-    private val json = Json { prettyPrint = true }
+    // JSON serializer without pretty print
+    private val json = Json {}
 
     /**
      * Creates a GetUsersTool with a mock client for testing
@@ -40,9 +40,9 @@ object GetUsersToolTestUtils {
     ): CallToolRequest {
         val arguments = mutableMapOf<String, JsonPrimitive>()
 
-        results?.let { arguments[RandomUserClient.PARAM_RESULTS] = JsonPrimitive(it) }
-        page?.let { arguments[RandomUserClient.PARAM_PAGE] = JsonPrimitive(it) }
-        nationality?.let { arguments[RandomUserClient.PARAM_NATIONALITY] = JsonPrimitive(it) }
+        results?.let { arguments[GetUsersArgs.PARAM_RESULTS] = JsonPrimitive(it) }
+        page?.let { arguments[GetUsersArgs.PARAM_PAGE] = JsonPrimitive(it) }
+        nationality?.let { arguments[GetUsersArgs.PARAM_NATIONALITY] = JsonPrimitive(it) }
 
         return CallToolRequest(
             name = "get_users",

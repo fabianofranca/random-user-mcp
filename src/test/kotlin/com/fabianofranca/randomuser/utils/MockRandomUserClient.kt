@@ -18,14 +18,10 @@ class MockRandomUserClient(
     val expectedResponse: RandomUserResponse
         get() = mockResponse ?: createDefaultMockResponse()
 
-    override suspend fun getUsers(
-        results: Int,
-        page: Int,
-        nationality: String
-    ): RandomUserResponse {
-        capturedResults = results
-        capturedPage = page
-        capturedNationality = nationality
+    override suspend fun getUsers(args: GetUsersArgs): RandomUserResponse {
+        capturedResults = args.results
+        capturedPage = args.page
+        capturedNationality = args.nationality
 
         if (throwException) {
             throw Exception("Test exception")

@@ -5,6 +5,8 @@ import com.fabianofranca.randomuser.RandomUserClientImpl
 import com.fabianofranca.randomuser.dsl.number
 import com.fabianofranca.randomuser.dsl.string
 import com.fabianofranca.randomuser.dsl.toolInput
+import com.fabianofranca.randomuser.extensions.toGetUsersArgs
+import com.fabianofranca.randomuser.models.GetUsersArgs
 import io.modelcontextprotocol.kotlin.sdk.CallToolRequest
 import io.modelcontextprotocol.kotlin.sdk.CallToolResult
 import io.modelcontextprotocol.kotlin.sdk.TextContent
@@ -19,33 +21,28 @@ class GetUsersTool(
         description = "Returns the complete response from the randomuser.me API, including all user data.",
         inputSchema = toolInput {
             properties {
-                number(RandomUserClient.PARAM_RESULTS) {
-                    description("Number of users to return (default: ${RandomUserClient.DEFAULT_RESULTS}).")
-                    default(RandomUserClient.DEFAULT_RESULTS)
+                number(GetUsersArgs.PARAM_RESULTS) {
+                    description("Number of users to return (default: ${GetUsersArgs.DEFAULT_RESULTS}).")
+                    default(GetUsersArgs.DEFAULT_RESULTS)
                 }
-                number(RandomUserClient.PARAM_PAGE) {
-                    description("Page of results to return (default: ${RandomUserClient.DEFAULT_PAGE}).")
-                    default(RandomUserClient.DEFAULT_PAGE)
+                number(GetUsersArgs.PARAM_PAGE) {
+                    description("Page of results to return (default: ${GetUsersArgs.DEFAULT_PAGE}).")
+                    default(GetUsersArgs.DEFAULT_PAGE)
                 }
-                string(RandomUserClient.PARAM_NATIONALITY) {
-                    description("Nationality of users to be returned (default: ${RandomUserClient.DEFAULT_NATIONALITY}).")
-                    default(RandomUserClient.DEFAULT_NATIONALITY)
+                string(GetUsersArgs.PARAM_NATIONALITY) {
+                    description("Nationality of users to be returned (default: ${GetUsersArgs.DEFAULT_NATIONALITY}).")
+                    default(GetUsersArgs.DEFAULT_NATIONALITY)
                 }
             }
         }
     )
 
     override suspend fun handler(request: CallToolRequest): CallToolResult {
-        val results = request.arguments[RandomUserClient.PARAM_RESULTS]?.toString()?.toIntOrNull()
-            ?: RandomUserClient.DEFAULT_RESULTS
-        val page =
-            request.arguments[RandomUserClient.PARAM_PAGE]?.toString()?.toIntOrNull() ?: RandomUserClient.DEFAULT_PAGE
-        val nationality = request.arguments[RandomUserClient.PARAM_NATIONALITY]?.toString()?.trim('"')
-            ?: RandomUserClient.DEFAULT_NATIONALITY
+        val args = request.toGetUsersArgs()
 
         return try {
-            val response = client.getUsers(results = results, page = page, nationality = nationality)
-            val json = Json { prettyPrint = true }
+            val response = client.getUsers(args)
+            val json = Json {}
             val responseJson = json.encodeToString(response)
 
             CallToolResult(

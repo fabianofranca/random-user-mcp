@@ -1,6 +1,6 @@
 package com.fabianofranca.randomuser.tools
 
-import com.fabianofranca.randomuser.RandomUserClient
+import com.fabianofranca.randomuser.models.GetUsersArgs
 import com.fabianofranca.randomuser.utils.GetUsersToolTestUtils.createRequest
 import com.fabianofranca.randomuser.utils.GetUsersToolTestUtils.createToolWithMockClient
 import com.fabianofranca.randomuser.utils.GetUsersToolTestUtils.verifyJsonResponse
@@ -28,16 +28,16 @@ class GetUsersToolTest {
 
         // Verify input schema properties exist
         val properties = tool.inputSchema.properties
-        assertTrue(properties.toString().contains(RandomUserClient.PARAM_RESULTS))
-        assertTrue(properties.toString().contains(RandomUserClient.PARAM_PAGE))
-        assertTrue(properties.toString().contains(RandomUserClient.PARAM_NATIONALITY))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_RESULTS))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_PAGE))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_NATIONALITY))
 
         // Verify that the properties contain the expected types and default values
         val propertiesString = properties.toString()
         assertTrue(propertiesString.contains("\"type\":\"number\""))
-        assertTrue(propertiesString.contains("\"default\":${RandomUserClient.DEFAULT_RESULTS}"))
-        assertTrue(propertiesString.contains("\"default\":${RandomUserClient.DEFAULT_PAGE}"))
-        assertTrue(propertiesString.contains("\"default\":\"${RandomUserClient.DEFAULT_NATIONALITY}\""))
+        assertTrue(propertiesString.contains("\"default\":${GetUsersArgs.DEFAULT_RESULTS}"))
+        assertTrue(propertiesString.contains("\"default\":${GetUsersArgs.DEFAULT_PAGE}"))
+        assertTrue(propertiesString.contains("\"default\":\"${GetUsersArgs.DEFAULT_NATIONALITY}\""))
     }
 
     @Test
@@ -53,9 +53,9 @@ class GetUsersToolTest {
         // Verify client was called with default parameters
         verifyParameters(
             mockClient,
-            RandomUserClient.DEFAULT_RESULTS,
-            RandomUserClient.DEFAULT_PAGE,
-            RandomUserClient.DEFAULT_NATIONALITY
+            GetUsersArgs.DEFAULT_RESULTS,
+            GetUsersArgs.DEFAULT_PAGE,
+            GetUsersArgs.DEFAULT_NATIONALITY
         )
 
         // Verify JSON response
