@@ -43,6 +43,9 @@ class GetUsersTool(
                     description("API version to use (default: ${GetUsersArgs.DEFAULT_VERSION}). Available versions: 1.0, 1.1, 1.2, 1.3, 1.4")
                     default(GetUsersArgs.DEFAULT_VERSION)
                 }
+                string(GetUsersArgs.PARAM_SEED) {
+                    description("Seed to use for generating consistent random results. Using the same seed will always return the same results.")
+                }
             }
         }
     )

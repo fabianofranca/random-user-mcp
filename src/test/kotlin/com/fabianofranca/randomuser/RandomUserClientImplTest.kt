@@ -163,4 +163,37 @@ class RandomUserClientImplTest {
         val request = mockEngine.requestHistory.last()
         assertEquals("https://randomuser.me/api/1.3/?results=10&page=2&nat=ca", request.url.toString())
     }
+
+    @Test
+    fun `test seed parameter is passed correctly`() = runBlocking {
+        // Given: A mock engine that captures the request URL
+        val mockEngine = MockEngine { request ->
+            // Return a simple valid response
+            val responseContent = """
+                {
+                    "results": [],
+                    "info": {
+                        "seed": "abc123",
+                        "results": 0,
+                        "page": 1,
+                        "version": "1.4"
+                    }
+                }
+            """.trimIndent()
+            respond(
+                content = responseContent,
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val client = createClientWithMockEngine(mockEngine)
+        val args = GetUsersArgs(results = 5, page = 1, nationality = "us", version = "1.4", seed = "abc123")
+
+        // When: We call getUsers with a seed parameter
+        client.getUsers(args)
+
+        // Then: The request URL should contain the seed parameter
+        val request = mockEngine.requestHistory.last()
+        assertEquals("https://randomuser.me/api/1.4/?results=5&page=1&nat=us&seed=abc123", request.url.toString())
+    }
 }

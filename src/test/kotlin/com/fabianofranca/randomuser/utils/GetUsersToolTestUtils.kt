@@ -35,7 +35,8 @@ object GetUsersToolTestUtils {
         results: Int? = null,
         page: Int? = null,
         nationality: String? = null,
-        version: String? = null
+        version: String? = null,
+        seed: String? = null
     ): CallToolRequest {
         val arguments = mutableMapOf<String, JsonPrimitive>()
 
@@ -43,6 +44,7 @@ object GetUsersToolTestUtils {
         page?.let { arguments[GetUsersArgs.PARAM_PAGE] = JsonPrimitive(it) }
         nationality?.let { arguments[GetUsersArgs.PARAM_NATIONALITY] = JsonPrimitive(it) }
         version?.let { arguments[GetUsersArgs.PARAM_VERSION] = JsonPrimitive(it) }
+        seed?.let { arguments[GetUsersArgs.PARAM_SEED] = JsonPrimitive(it) }
 
         return CallToolRequest(
             name = "get_users",
@@ -58,12 +60,14 @@ object GetUsersToolTestUtils {
         expectedResults: Int,
         expectedPage: Int,
         expectedNationality: String,
-        expectedVersion: String = GetUsersArgs.DEFAULT_VERSION
+        expectedVersion: String = GetUsersArgs.DEFAULT_VERSION,
+        expectedSeed: String? = null
     ) {
         assertEquals(expectedResults, mockClient.capturedResults)
         assertEquals(expectedPage, mockClient.capturedPage)
         assertEquals(expectedNationality, mockClient.capturedNationality)
         assertEquals(expectedVersion, mockClient.capturedVersion)
+        assertEquals(expectedSeed, mockClient.capturedSeed)
     }
 
     /**

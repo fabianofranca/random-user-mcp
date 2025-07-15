@@ -32,6 +32,7 @@ class GetUsersToolTest {
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_PAGE))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_NATIONALITY))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_VERSION))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_SEED))
 
         // Verify that the properties contain the expected types and default values
         val propertiesString = properties.toString()
@@ -121,5 +122,30 @@ class GetUsersToolTest {
         val content = result.content.first() as TextContent
         val errorMessage = content.text ?: ""
         assertContains(errorMessage, "Error getting users: Test exception")
+    }
+
+    @Test
+    fun `test handler with seed parameter`() = runBlocking {
+        // Given: A GetUsersTool with a mock client and a request with a seed parameter
+        val seed = "abc123"
+        val (tool, mockClient) = createToolWithMockClient()
+        val request = createRequest(seed = seed)
+
+        // When: We call the handler
+        val result = tool.handler(request)
+
+        // Then: The client should be called with the seed parameter and return the expected response
+        // Verify client was called with the seed parameter
+        verifyParameters(
+            mockClient,
+            GetUsersArgs.DEFAULT_RESULTS,
+            GetUsersArgs.DEFAULT_PAGE,
+            GetUsersArgs.DEFAULT_NATIONALITY,
+            GetUsersArgs.DEFAULT_VERSION,
+            seed
+        )
+
+        // Verify JSON response
+        verifyJsonResponse(result, mockClient.expectedResponse)
     }
 }
