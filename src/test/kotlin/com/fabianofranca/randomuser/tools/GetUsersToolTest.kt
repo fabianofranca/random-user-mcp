@@ -35,6 +35,8 @@ class GetUsersToolTest {
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_SEED))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_GENDER))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_PASSWORD))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_INCLUDE))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_EXCLUDE))
 
         // Verify that the properties contain the expected types and default values
         val propertiesString = properties.toString()
@@ -198,6 +200,63 @@ class GetUsersToolTest {
             null,
             null,
             password
+        )
+
+        // Verify JSON response
+        verifyJsonResponse(result, mockClient.expectedResponse)
+    }
+
+    @Test
+    fun `test handler with include parameter`() = runBlocking {
+        // Given: A GetUsersTool with a mock client and a request with an include parameter
+        val include = "gender,name,nat"
+        val (tool, mockClient) = createToolWithMockClient()
+        val request = createRequest(include = include)
+
+        // When: We call the handler
+        val result = tool.handler(request)
+
+        // Then: The client should be called with the include parameter and return the expected response
+        // Verify client was called with the include parameter
+        verifyParameters(
+            mockClient,
+            GetUsersArgs.DEFAULT_RESULTS,
+            GetUsersArgs.DEFAULT_PAGE,
+            GetUsersArgs.DEFAULT_NATIONALITY,
+            GetUsersArgs.DEFAULT_VERSION,
+            null,
+            null,
+            null,
+            include
+        )
+
+        // Verify JSON response
+        verifyJsonResponse(result, mockClient.expectedResponse)
+    }
+
+    @Test
+    fun `test handler with exclude parameter`() = runBlocking {
+        // Given: A GetUsersTool with a mock client and a request with an exclude parameter
+        val exclude = "login"
+        val (tool, mockClient) = createToolWithMockClient()
+        val request = createRequest(exclude = exclude)
+
+        // When: We call the handler
+        val result = tool.handler(request)
+
+        // Then: The client should be called with the exclude parameter and return the expected response
+        // Verify client was called with the exclude parameter
+        verifyParameters(
+            mockClient,
+            GetUsersArgs.DEFAULT_RESULTS,
+            GetUsersArgs.DEFAULT_PAGE,
+            GetUsersArgs.DEFAULT_NATIONALITY,
+            GetUsersArgs.DEFAULT_VERSION,
+            null,
+            null,
+            null,
+            null,
+            exclude
         )
 
         // Verify JSON response

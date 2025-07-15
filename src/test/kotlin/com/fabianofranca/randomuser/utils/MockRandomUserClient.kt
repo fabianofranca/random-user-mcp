@@ -17,6 +17,8 @@ class MockRandomUserClient(
     var capturedSeed: String? = null
     var capturedGender: String? = null
     var capturedPassword: String? = null
+    var capturedInclude: String? = null
+    var capturedExclude: String? = null
 
     // Public property to access the expected response
     val expectedResponse: RandomUserResponse
@@ -30,6 +32,8 @@ class MockRandomUserClient(
         capturedSeed = args.seed
         capturedGender = args.gender
         capturedPassword = args.password
+        capturedInclude = args.include
+        capturedExclude = args.exclude
 
         if (throwException) {
             throw Exception("Test exception")

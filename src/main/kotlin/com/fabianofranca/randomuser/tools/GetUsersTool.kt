@@ -55,6 +55,16 @@ class GetUsersTool(
                             "Example: 'upper,lower,1-16' generates passwords with uppercase and lowercase letters between 1-16 characters long. " +
                             "By default, passwords are chosen randomly from a list of ~10k top used passwords.")
                 }
+                string(GetUsersArgs.PARAM_INCLUDE) {
+                    description("Comma-separated list of fields to include in the response. " +
+                            "Available fields: gender, name, location, email, login, registered, dob, phone, cell, id, picture, nat. " +
+                            "Example: 'gender,name,nat' will only return these fields and skip others, which can save processing time.")
+                }
+                string(GetUsersArgs.PARAM_EXCLUDE) {
+                    description("Comma-separated list of fields to exclude from the response. " +
+                            "Available fields: gender, name, location, email, login, registered, dob, phone, cell, id, picture, nat. " +
+                            "Example: 'login' will return all fields except login data.")
+                }
             }
         }
     )

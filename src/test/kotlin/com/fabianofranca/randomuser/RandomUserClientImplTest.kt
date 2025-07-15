@@ -96,8 +96,8 @@ class RandomUserClientImplTest {
         // Then: The response should be correctly parsed
         assertEquals(expectedResponse, response)
         assertEquals(1, response.results.size)
-        assertEquals("John", response.results.first().name.first)
-        assertEquals("Doe", response.results.first().name.last)
+        assertEquals("John", response.results.first().name?.first)
+        assertEquals("Doe", response.results.first().name?.last)
     }
 
     @Test
@@ -263,5 +263,75 @@ class RandomUserClientImplTest {
         val actualUrl = request.url.toString()
         println("[DEBUG_LOG] Actual URL: $actualUrl")
         assertEquals("https://randomuser.me/api/1.4/?results=3&page=1&nat=us&password=upper%2Clower%2C1-16", actualUrl)
+    }
+
+    @Test
+    fun `test include parameter is passed correctly`() = runBlocking {
+        // Given: A mock engine that captures the request URL
+        val mockEngine = MockEngine { request ->
+            // Return a simple valid response
+            val responseContent = """
+                {
+                    "results": [],
+                    "info": {
+                        "seed": "test",
+                        "results": 0,
+                        "page": 1,
+                        "version": "1.4"
+                    }
+                }
+            """.trimIndent()
+            respond(
+                content = responseContent,
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val client = createClientWithMockEngine(mockEngine)
+        val args = GetUsersArgs(results = 3, page = 1, nationality = "us", version = "1.4", include = "gender,name,nat")
+
+        // When: We call getUsers with an include parameter
+        client.getUsers(args)
+
+        // Then: The request URL should contain the include parameter
+        val request = mockEngine.requestHistory.last()
+        val actualUrl = request.url.toString()
+        println("[DEBUG_LOG] Actual URL: $actualUrl")
+        assertEquals("https://randomuser.me/api/1.4/?results=3&page=1&nat=us&inc=gender%2Cname%2Cnat", actualUrl)
+    }
+
+    @Test
+    fun `test exclude parameter is passed correctly`() = runBlocking {
+        // Given: A mock engine that captures the request URL
+        val mockEngine = MockEngine { request ->
+            // Return a simple valid response
+            val responseContent = """
+                {
+                    "results": [],
+                    "info": {
+                        "seed": "test",
+                        "results": 0,
+                        "page": 1,
+                        "version": "1.4"
+                    }
+                }
+            """.trimIndent()
+            respond(
+                content = responseContent,
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+        val client = createClientWithMockEngine(mockEngine)
+        val args = GetUsersArgs(results = 3, page = 1, nationality = "us", version = "1.4", exclude = "login")
+
+        // When: We call getUsers with an exclude parameter
+        client.getUsers(args)
+
+        // Then: The request URL should contain the exclude parameter
+        val request = mockEngine.requestHistory.last()
+        val actualUrl = request.url.toString()
+        println("[DEBUG_LOG] Actual URL: $actualUrl")
+        assertEquals("https://randomuser.me/api/1.4/?results=3&page=1&nat=us&exc=login", actualUrl)
     }
 }

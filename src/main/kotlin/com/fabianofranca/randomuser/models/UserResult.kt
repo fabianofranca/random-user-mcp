@@ -4,16 +4,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserResult(
-    val gender: String,
-    val name: UserName,
-    val location: UserLocation,
-    val email: String,
-    val login: UserLogin,
-    val dob: UserDob,
-    val registered: UserRegistered,
-    val phone: String,
-    val cell: String,
-    val id: UserId,
-    val picture: UserPicture,
-    val nat: String
+    val gender: String? = null,
+    val name: UserName? = null,
+    val location: UserLocation? = null,
+    val email: String? = null,
+    val login: UserLogin? = null,
+    val dob: UserDob? = null,
+    val registered: UserRegistered? = null,
+    val phone: String? = null,
+    val cell: String? = null,
+    val id: UserId? = null,
+    val picture: UserPicture? = null,
+    val nat: String? = null
 )
