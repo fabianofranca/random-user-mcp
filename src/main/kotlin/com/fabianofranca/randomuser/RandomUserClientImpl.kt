@@ -26,7 +26,7 @@ class RandomUserClientImpl(
     private val logger = LoggerFactory.getLogger("com.fabianofranca.randomuser.ApiRequestLogger")
 
     override suspend fun getUsers(args: GetUsersArgs): RandomUserResponse {
-        logger.info("Making API request to randomuser.me with parameters: results=${args.results}, page=${args.page}, nationality=${args.nationality}, version=${args.version}, seed=${args.seed}")
+        logger.info("Making API request to randomuser.me with parameters: results=${args.results}, page=${args.page}, nationality=${args.nationality}, version=${args.version}, seed=${args.seed}, gender=${args.gender}")
 
         val response = client.get("https://randomuser.me/api/${args.version}/") {
             url {
@@ -35,6 +35,9 @@ class RandomUserClientImpl(
                 parameters.append(GetUsersArgs.PARAM_NATIONALITY, args.nationality)
                 args.seed?.let { seed ->
                     parameters.append(GetUsersArgs.PARAM_SEED, seed)
+                }
+                args.gender?.let { gender ->
+                    parameters.append(GetUsersArgs.PARAM_GENDER, gender)
                 }
             }
         }

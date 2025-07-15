@@ -33,6 +33,7 @@ class GetUsersToolTest {
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_NATIONALITY))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_VERSION))
         assertTrue(properties.toString().contains(GetUsersArgs.PARAM_SEED))
+        assertTrue(properties.toString().contains(GetUsersArgs.PARAM_GENDER))
 
         // Verify that the properties contain the expected types and default values
         val propertiesString = properties.toString()
@@ -143,6 +144,32 @@ class GetUsersToolTest {
             GetUsersArgs.DEFAULT_NATIONALITY,
             GetUsersArgs.DEFAULT_VERSION,
             seed
+        )
+
+        // Verify JSON response
+        verifyJsonResponse(result, mockClient.expectedResponse)
+    }
+
+    @Test
+    fun `test handler with gender parameter`() = runBlocking {
+        // Given: A GetUsersTool with a mock client and a request with a gender parameter
+        val gender = "female"
+        val (tool, mockClient) = createToolWithMockClient()
+        val request = createRequest(gender = gender)
+
+        // When: We call the handler
+        val result = tool.handler(request)
+
+        // Then: The client should be called with the gender parameter and return the expected response
+        // Verify client was called with the gender parameter
+        verifyParameters(
+            mockClient,
+            GetUsersArgs.DEFAULT_RESULTS,
+            GetUsersArgs.DEFAULT_PAGE,
+            GetUsersArgs.DEFAULT_NATIONALITY,
+            GetUsersArgs.DEFAULT_VERSION,
+            null,
+            gender
         )
 
         // Verify JSON response

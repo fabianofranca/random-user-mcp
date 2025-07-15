@@ -46,6 +46,9 @@ class GetUsersTool(
                 string(GetUsersArgs.PARAM_SEED) {
                     description("Seed to use for generating consistent random results. Using the same seed will always return the same results.")
                 }
+                string(GetUsersArgs.PARAM_GENDER) {
+                    description("Gender of users to return. Available options: male, female. If not specified, both genders will be returned.")
+                }
             }
         }
     )

@@ -22,7 +22,10 @@ data class GetUsersArgs(
     val version: String = DEFAULT_VERSION,
 
     @SerialName(PARAM_SEED)
-    val seed: String? = null
+    val seed: String? = null,
+
+    @SerialName(PARAM_GENDER)
+    val gender: String? = null
 ) {
     companion object {
         // API parameter names
@@ -31,6 +34,7 @@ data class GetUsersArgs(
         const val PARAM_NATIONALITY = "nat"
         const val PARAM_VERSION = "version"
         const val PARAM_SEED = "seed"
+        const val PARAM_GENDER = "gender"
 
         // Default values
         const val DEFAULT_RESULTS = 1
