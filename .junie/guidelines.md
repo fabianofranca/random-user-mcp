@@ -25,6 +25,7 @@ This project is a Random User MCP (Model Context Protocol) Server built with Kot
   - **Given**: Set up the test context and preconditions
   - **When**: Execute the action being tested
   - **Then**: Verify the expected outcomes
+- Test coverage must not fall below 90%. Always ensure that new code is properly tested to maintain this coverage threshold.
 
 ## Building the Project
 - After making changes, Junie should build the project to ensure there are no compilation errors.
