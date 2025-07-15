@@ -24,3 +24,4 @@ mcp-kotlin = { module = "io.modelcontextprotocol:kotlin-sdk", version.ref = "mcp
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor-version" }
+jacoco = { id = "jacoco" }
