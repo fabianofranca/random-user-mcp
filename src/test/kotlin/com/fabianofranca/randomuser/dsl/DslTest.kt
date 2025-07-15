@@ -1,6 +1,5 @@
 package com.fabianofranca.randomuser.dsl
 
-import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -18,8 +17,7 @@ class DslTest {
             }
         }
 
-        // Then: The result should be a JsonObject with the expected property
-        assertTrue(result is JsonObject)
+        // Then: The result should contain the expected property
         assertTrue(result.containsKey("testProperty"))
         assertEquals("string", result["testProperty"]?.jsonObject?.get("type")?.toString()?.replace("\"", ""))
     }
