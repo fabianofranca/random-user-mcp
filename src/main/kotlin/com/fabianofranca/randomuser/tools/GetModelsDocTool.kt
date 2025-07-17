@@ -1,5 +1,6 @@
 package com.fabianofranca.randomuser.tools
 
+import com.fabianofranca.randomuser.base.BaseTool
 import com.fabianofranca.randomuser.dsl.toolInput
 import io.modelcontextprotocol.kotlin.sdk.CallToolRequest
 import io.modelcontextprotocol.kotlin.sdk.CallToolResult

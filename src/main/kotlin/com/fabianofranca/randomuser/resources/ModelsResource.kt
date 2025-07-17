@@ -1,5 +1,6 @@
 package com.fabianofranca.randomuser.resources
 
+import com.fabianofranca.randomuser.base.BaseResource
 import io.modelcontextprotocol.kotlin.sdk.ReadResourceRequest
 import io.modelcontextprotocol.kotlin.sdk.ReadResourceResult
 import io.modelcontextprotocol.kotlin.sdk.TextResourceContents

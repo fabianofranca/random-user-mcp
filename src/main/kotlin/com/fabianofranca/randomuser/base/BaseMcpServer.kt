@@ -1,7 +1,5 @@
-package com.fabianofranca.randomuser
+package com.fabianofranca.randomuser.base
 
-import com.fabianofranca.randomuser.resources.BaseResource
-import com.fabianofranca.randomuser.tools.BaseTool
 import io.ktor.utils.io.streams.*
 import io.modelcontextprotocol.kotlin.sdk.Implementation
 import io.modelcontextprotocol.kotlin.sdk.ServerCapabilities
@@ -62,4 +60,5 @@ abstract class BaseMcpServer(name: String, version: String) {
         }
     }
 
+    open fun onClose() {}
 }

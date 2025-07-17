@@ -2,6 +2,7 @@ package com.fabianofranca.randomuser.tools
 
 import com.fabianofranca.randomuser.RandomUserClient
 import com.fabianofranca.randomuser.RandomUserClientImpl
+import com.fabianofranca.randomuser.base.BaseTool
 import com.fabianofranca.randomuser.dsl.number
 import com.fabianofranca.randomuser.dsl.string
 import com.fabianofranca.randomuser.dsl.toolInput

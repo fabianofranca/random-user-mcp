@@ -1,7 +1,8 @@
 package com.fabianofranca.randomuser
 
-import com.fabianofranca.randomuser.resources.BaseResource
-import com.fabianofranca.randomuser.tools.BaseTool
+import com.fabianofranca.randomuser.base.BaseMcpServer
+import com.fabianofranca.randomuser.base.BaseResource
+import com.fabianofranca.randomuser.base.BaseTool
 import com.fabianofranca.randomuser.tools.GetUsersTool
 import kotlinx.coroutines.*
 import kotlin.test.Test
