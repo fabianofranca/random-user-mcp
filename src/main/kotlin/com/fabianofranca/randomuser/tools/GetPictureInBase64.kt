@@ -5,8 +5,8 @@ import com.fabianofranca.randomuser.ImageClientImpl
 import com.fabianofranca.randomuser.base.BaseTool
 import com.fabianofranca.randomuser.dsl.string
 import com.fabianofranca.randomuser.dsl.toolInput
-import com.fabianofranca.randomuser.extensions.toImageToBase64Args
-import com.fabianofranca.randomuser.models.ImageToBase64Args
+import com.fabianofranca.randomuser.extensions.toGetPictureInBase64Args
+import com.fabianofranca.randomuser.models.GetPictureInBase64Args
 import io.modelcontextprotocol.kotlin.sdk.CallToolRequest
 import io.modelcontextprotocol.kotlin.sdk.CallToolResult
 import io.modelcontextprotocol.kotlin.sdk.TextContent
@@ -15,23 +15,31 @@ import java.net.URI
 import java.net.URISyntaxException
 import java.util.*
 
-class ImageToBase64Tool(private val client: ImageClient = ImageClientImpl()) : BaseTool() {
+class GetPictureInBase64(private val client: ImageClient = ImageClientImpl()) : BaseTool() {
 
     override fun tool() = Tool(
-        name = "image_to_base64",
-        description = "Fetches an image from a URL and returns it as a Base64 encoded string.",
+        name = "get_picture_in_base64",
+        description = """
+        Retrieves and converts a RandomUser.me profile image into a Base64 string. 
+        Accepts only valid RandomUser.me URLs (http/https) in the following formats:
+        - https://randomuser.me/api/portraits/[men|women]
+        - https://randomuser.me/api/portraits/med/[men|women]
+        - https://randomuser.me/api/portraits/thumb/[men|women]
+        
+        Returns: A Base64 encoded string of the image or an error message if the URL is invalid.
+    """.trimIndent(),
         inputSchema = toolInput {
             properties {
-                string(ImageToBase64Args::url.name) {
-                    description("The URL of the image to fetch and encode.")
+                string(GetPictureInBase64Args::url.name) {
+                    description("Complete RandomUser.me image URL to fetch and encode in Base64.")
                 }
             }
-            required(ImageToBase64Args::url.name)
+            required(GetPictureInBase64Args::url.name)
         }
     )
 
     override suspend fun handler(request: CallToolRequest): CallToolResult {
-        val args = request.toImageToBase64Args()
+        val args = request.toGetPictureInBase64Args()
 
         return try {
             if (!isValidImageUrl(args.url)) {
