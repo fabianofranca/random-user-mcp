@@ -1,9 +1,10 @@
+# Gemini Project Guidelines for random-user-mcp
 
-# Guidelines for Junie
+This document provides guidelines for the Gemini agent to follow when working on this project.
 
 ## Important Notice
 
-Junie must read the file `agent/guidelines.md` to understand the project's best practices regarding:
+Gemini must read the file `agent/guidelines.md` to understand the project's best practices regarding:
 
 - Architecture
 - Code structure
