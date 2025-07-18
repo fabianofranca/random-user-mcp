@@ -1,6 +1,12 @@
 # 🚀 Random User MCP Server
 
-This project was created with the assistance of Junie. For additional context and development guidelines, please refer to the `.junie/guidelines.md` file.
+![MCP Server in Action](img/mcp.gif)
+
+## 🤖 AI-Assisted Development
+
+This project was developed with the help of AI tools, specifically **Junie Ultimate** and **Gemini CLI**, which were used throughout different stages of the development process.
+
+To streamline the collaboration between these two powerful AI tools and maintain consistency across the project, a consolidated set of guidelines has been established in the `agent/guidelines.md` file. This document serves as the single source of truth for both Junie Ultimate and Gemini CLI, ensuring that all development work follows a unified approach regarding code structure, testing, commit messages, and other critical aspects.
 
 ## 📖 Overview
 
@@ -71,6 +77,29 @@ Add the following configuration to the `mcpServers` section of your `claude_desk
 *   **[PROJECT_PATH]**: Replace this placeholder with the absolute path where the `random-user-mcp` project is located on your machine (e.g., `C:\projects\random-user-mcp` on Windows, or `/home/your_user/projects/random-user-mcp` on Linux/macOS).
 
 After saving the changes to the `claude_desktop_config.json` file, **restart Claude Desktop** for the new configuration to be loaded and the `random-user-mcp` server to be started.
+
+---
+
+### 🤖 Testing in Gemini CLI
+
+To use `random-user-mcp` with Gemini CLI, you need to add a configuration to your `.gemini/settings.json` file. This file is usually located in your user's home directory.
+
+Add the following configuration to the `mcpServers` section of your `.gemini/settings.json` file:
+
+```json
+{
+  "mcpServers": {
+    "random-user": {
+      "command": "[PROJECT_PATH]/random-user-mcp/random-user-mcp.sh",
+      "protocol": "stdio"
+    }
+  }
+}
+```
+
+*   **[PROJECT_PATH]**: Replace this placeholder with the absolute path where the `random-user-mcp` project is located on your machine (e.g., `C:\projects\random-user-mcp` on Windows, or `/home/your_user/projects/random-user-mcp` on Linux/macOS).
+
+After saving the changes to the `.gemini/settings.json` file, restart your Gemini CLI session for the new configuration to be loaded. You should then be able to use the tools exposed by the `random-user-mcp` server directly within Gemini CLI.
 
 ---
 
