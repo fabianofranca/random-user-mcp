@@ -139,3 +139,7 @@ Follow these steps to test your `random-user-mcp` server using the Inspector:
 
 4.  **Verify Tool Listing:**
     If the connection and tool registration are successful, you should now see a list of all tools provided by your `random-user-mcp` server, ready for interaction and testing.
+
+## 🙏 Acknowledgements
+
+A special thank you to the team behind [https://randomuser.me/](https://randomuser.me/) for providing their REST API for study and development purposes.
