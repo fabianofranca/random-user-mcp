@@ -53,6 +53,7 @@ abstract class BaseMcpServer(name: String, version: String) {
             val done = Job()
 
             server.onClose {
+                onClose()
                 done.complete()
             }
 
